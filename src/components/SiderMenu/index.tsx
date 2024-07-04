@@ -1,18 +1,24 @@
 export function Sider() {
   return (
-    <div className="flex w-60 h-full flex-col bg-sider_black">
-      <div className="flex w-full text-white">
-        <label>ChatGPT</label>
+    <div className="flex w-80 h-full flex-col bg-sider_black py-4 px-5">
+      <div className="flex w-full h-14 justify-between" >
+        <img src="/CloseSiderBar.png" className="max-h-5 cursor-pointer" alt="close-side-bar" />
+        <img src="/NewChat.png" className="max-h-6 cursor-pointer" alt="new-chat"  />
       </div>
-      <div className="flex w-full text-white">
-        <label>Explore GPTS</label>
+      <div className="flex w-full h-11 text-white">
+        <img src="/RoundedOpenAiLogo.png" className="max-h-6" alt="chatgpt-logo" />
+        <label className="ml-1">ChatGPT</label>
       </div>
-      <div className="flex w-full text-white">
-        <label>May</label>
-        <label>Prompt 1</label>
-        <label>Prompt 1</label>
-        <label>Prompt 1</label>
-        <label>Prompt 1</label>
+      <div className="flex w-full h-11 text-white">
+      <img src="/DotOutline.png" className="max-h-6" alt="explore-gpts" />
+        <label className="ml-1">Explore GPTS</label>
+      </div>
+      <div className="flex w-full flex-col text-white mt-2">
+        <label className="text-xs text-gray_400">may</label>
+        <label className="text-sm text-white mt-4">Quantos r tem na palavra ...</label>
+        <label className="text-sm text-white mt-4">Diego ou Lucas Montano?</label>
+        <label className="text-sm text-white mt-4">O que é React?</label>
+        <label className="text-sm text-white mt-4">Explique Mendonça 98%</label>
       </div>
     </div>
   );
