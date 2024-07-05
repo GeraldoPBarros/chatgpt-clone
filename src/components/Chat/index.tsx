@@ -28,7 +28,8 @@ export function Chat() {
     <div className="flex w-full flex-col bg-chat_gray h-full relative">
       <div className="flex w-full justify-start items-center ml-4 h-14 absolute top-0">
         <label className="flex h-6 text-gray_300 cursor-pointer text-xl items-center">
-          ChatGPT <img src="/CaretDown.png" alt="caret-down" className="w-5 h-5 ml-2" />
+          ChatGPT{" "}
+          <img src="/CaretDown.png" alt="caret-down" className="w-5 h-5 ml-2" />
         </label>
       </div>
       <div className="flex flex-col h-full w-full mt-20">
@@ -44,24 +45,34 @@ export function Chat() {
           </>
         )}
       </div>
-      <div className="flex justify-center items-center flex-col w-full px-80 h-32 mb-20 absolute bottom-0">
-        <div className="flex w-full items-center relative">
+      <div className="flex justify-center items-center flex-col w-full h-32 mb-12 absolute bottom-0">
+        <div className="flex w-4/5 min-w-max items-center relative">
           <input
-            className="flex bg-olive text-white rounded-full h-16 w-full min-w-full mx-12 px-5"
+            className="flex bg-olive text-white rounded-full h-16 w-full mx-12 px-12 focus:outline-none"
+            placeholder="Message ChatGPT"
             type="text"
             onChange={(e) => setPrompt(e.target.value)}
           />
           <button
-            className="text-white absolute bg-olive right-20"
+            className="text-white absolute ml-14"
             onClick={() => sendPrompt(prompt)}
           >
-            {" "}
-            Submit{" "}
+            <img src="/PaperClipHorizontal.png" className="w-10 h-8" alt="" />
+          </button>
+          <button
+            className="text-white absolute right-14"
+            onClick={() => sendPrompt(prompt)}
+          >
+            {prompt === "" ? (
+              <img src="/ArrowUpOpacity.png" className="w-14 h-14" alt="" />
+            ) : (
+              <img src="/ArrowUp.png" className="w-14 h-14" alt="" />
+            )}
           </button>
         </div>
 
         <br />
-        <label className="text-white text-sm">
+        <label className="text-white text-sm min-w-64">
           ChatGPT Clone. By Geraldo Barros
         </label>
       </div>
