@@ -18,12 +18,14 @@ export function Chat() {
     }
   }, [indexRendering, responseArray, showResponse]);
 
+  /** Organize response with json structure */
   function processChatResponse(response: string) {
     const responseObject = JSON.parse(response.replace("§", ""));
     const answerArray = responseObject.data.answer.split(" ");
     return answerArray;
   }
 
+  /** send prompt function */
   async function sendPrompt(data: string) {
     const question = {
       data: data,
@@ -34,6 +36,7 @@ export function Chat() {
       body: JSON.stringify(question), // Convert data to JSON string
     };
 
+    // update variables and send prompt
     try {
       setResponseArray([]);
       setIndexRendering(0);
