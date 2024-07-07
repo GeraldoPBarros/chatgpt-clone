@@ -1,8 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Chat() {
   const [prompt, setPrompt] = useState("");
+  const [indexRendering, setIndexRendering] = useState(0);
+  const [responseArray, setResponseArray] = useState<string[]>([]);
   const [showResponse, setShowResponse] = useState("");
+
+  useEffect(() => {
+    if (responseArray.length > 0 && indexRendering < responseArray.length) {
+      let newAnswer = showResponse + " " + responseArray[indexRendering];
+      setTimeout(() => {
+        if (indexRendering < responseArray.length) {
+          setIndexRendering(indexRendering + 1);
+        }
+        setShowResponse(newAnswer);
+      }, 200);
+    }
+  }, [indexRendering, responseArray, showResponse]);
+
+  function processChatResponse(response: string) {
+    const responseObject = JSON.parse(response.replace("§", ""));
+    const answerArray = responseObject.data.answer.split(" ");
+    return answerArray;
+  }
 
   async function sendPrompt(data: string) {
     const question = {
@@ -15,10 +35,12 @@ export function Chat() {
     };
 
     try {
+      setResponseArray([]);
+      setIndexRendering(0);
       const res = await fetch("http://localhost:3001/question", requestOptions);
       const repo = await res.json();
-      console.log(repo.message);
-      setShowResponse(repo.message);
+      // console.log(repo.message);
+      setResponseArray(processChatResponse(repo.message));
     } catch (e) {
       console.log(e);
     }
