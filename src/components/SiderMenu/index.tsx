@@ -1,8 +1,23 @@
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { ShowResponseArray } from "@/src/types/chat";
 
 export function Sider() {
   const dispatch = useAppDispatch();
-  const chatPrompt = useAppSelector((state) => state.chatSlice.prompt);
+  const indexOfChat = useAppSelector(
+    (state) => state.chatSlice.indexOfChatExibition
+  );
+  const globalResponses = useAppSelector(
+    (state) => state.chatSlice.globalResponses
+  );
+
+  const [showResponse, setShowResponse] = useState<ShowResponseArray>(null);
+
+  useEffect(() => {
+    if (globalResponses !== null) {
+      setShowResponse(globalResponses[indexOfChat]);
+    }
+  }, [globalResponses]);
 
   return (
     <div className="flex w-80 h-full flex-col bg-sider_black py-4 px-5">
@@ -31,13 +46,16 @@ export function Sider() {
         <label className="ml-1">Explore GPTS</label>
       </div>
       <div className="flex w-full flex-col text-white mt-2">
-        <label className="text-xs text-gray_400">may</label>
-        <label className="text-sm text-white mt-4">{chatPrompt}</label>
-        <label className="text-sm text-white mt-4">
-          Diego ou Lucas Montano?
-        </label>
-        <label className="text-sm text-white mt-4">O que é React?</label>
-        <label className="text-sm text-white mt-4">Explique Mendonça 98%</label>
+        {showResponse?.map((item, index) => (
+          <div key={item.question + index} className="flex flex-col">
+            <label className="text-xs text-gray_400">Today</label>
+            <div className="flex h-9 w-auto p-2 bg-chat_gray rounded-md">
+              <label className="text-sm text-gray_50" key={item.question}>
+                {item.question}
+              </label>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

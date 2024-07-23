@@ -1,47 +1,79 @@
 import { useEffect, useState } from "react";
-
-interface ShowResponseArrayType {
-  question: string;
-  answer: string;
-}
-
-type ShowResponseArray = ShowResponseArrayType[] | null;
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { GlobalResponsesType, ShowResponseArray } from "@/src/types/chat";
+import { setGlobalResponses } from "@/src/features/chat/chat";
 
 export function Chat() {
+  const dispatch = useAppDispatch();
+  const indexOfChat = useAppSelector(
+    (state) => state.chatSlice.indexOfChatExibition
+  );
+  const globalResponses: GlobalResponsesType = useAppSelector(
+    (state) => state.chatSlice.globalResponses
+  );
+
   const [prompt, setPrompt] = useState("");
   const [indexRendering, setIndexRendering] = useState(0);
   const [responseArray, setResponseArray] = useState<string[]>([]);
   const [showResponse, setShowResponse] = useState<ShowResponseArray>(null);
 
+  // useEffect(() => {
+  //   if (globalResponses !== null) {
+  //     setShowResponse(globalResponses[indexOfChat]);
+  //   }
+  // }, [indexOfChat, globalResponses]);
+
   useEffect(() => {
-    if (responseArray.length > 0 && indexRendering < responseArray.length) {
-      let responseTemp =
-        showResponse === null
-          ? ""
-          : showResponse[showResponse.length - 1]?.answer;
-
-      let newAnswer = responseTemp + " " + responseArray[indexRendering];
-
-      console.log(newAnswer);
-
+    if (responseArray.length > 0 && indexRendering <= responseArray.length) {
       setTimeout(() => {
-        const responseValidation: ShowResponseArray =
-          showResponse === null
-            ? [{ question: prompt, answer: newAnswer }]
-            : updateOnLastIndex(showResponse, newAnswer);
-        console.log(responseValidation);
-        setShowResponse(responseValidation);
-
         if (indexRendering < responseArray.length) {
+          let responseTemp =
+            showResponse === null
+              ? ""
+              : showResponse[showResponse.length - 1]?.answer;
+
+          let newAnswer = responseTemp + " " + responseArray[indexRendering];
+          const responseValidation: ShowResponseArray =
+            showResponse === null
+              ? [{ question: prompt, answer: newAnswer }]
+              : updateOnLastIndex(showResponse, newAnswer);
+          setShowResponse(responseValidation);
           setIndexRendering(indexRendering + 1);
+        } else {
+          dispatch(
+            setGlobalResponses(
+              updateGlobalResponses(indexOfChat, showResponse, globalResponses)
+            )
+          );
         }
       }, 200);
     }
   }, [indexRendering, responseArray, showResponse, prompt]);
 
+  function updateGlobalResponses(
+    index: number,
+    showResp: ShowResponseArray,
+    globalResp: GlobalResponsesType
+  ) {
+    let newGlobalRespone: GlobalResponsesType = [];
+    if (showResp !== null && globalResp !== null) {
+      for (let indexGlb = 0; indexGlb < globalResp!.length; indexGlb++) {
+        if (indexGlb === index) {
+          newGlobalRespone.push(showResp);
+        } else {
+          newGlobalRespone.push(globalResp[indexGlb]);
+        }
+      }
+    } else {
+      if (showResp !== null) {
+        newGlobalRespone.push(showResp);
+      }
+    }
+    return newGlobalRespone;
+  }
+
   function updateOnLastIndex(stateValue: ShowResponseArray, data: string) {
     let newStateValue = stateValue;
-    console.log(stateValue);
     if (newStateValue !== null) {
       newStateValue[newStateValue?.length - 1].answer = data;
     }
@@ -115,8 +147,12 @@ export function Chat() {
                     </div>
                   </div>
                   <br />
-                  <div className="flex flex-row justify-center">
-                    <img className="w-9 h-9" src="/RoundedOpenAiLogo.png" alt="chat-logo" />
+                  <div className="flex flex-row justify-start w-[74%]">
+                    <img
+                      className="w-9 h-9"
+                      src="/RoundedOpenAiLogo.png"
+                      alt="chat-logo"
+                    />
                     <label
                       className="max-w-[70%] text-gray_300 ml-4"
                       key={item.question + index + 2}
