@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# ChatGPT Clone
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The ChatGPT Clone Application is an open-source project that replicates the functionality of OpenAI's ChatGPT.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+![image](https://github.com/user-attachments/assets/14c4b044-aa68-41e1-a8e4-ff5853a38471)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Technologies
 
-## Learn More
+Yarn, NextJS, TailwindCSS and Redux-Toolkit.
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Interactive chat interface.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Support for multiple language models.
 
-## Deploy on Vercel
+- Customizable response behavior.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- monitoring of conversations.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Run the project
+To run the project locally, follow these steps:
+
+1. Clone this repository: [https://github.com/GeraldoPBarros/chatgpt-clone.git](https://github.com/GeraldoPBarros/chatgpt-clone.git);
+
+2. Navigate to the project directory;
+
+3. Navigate to the project directory;x
+
+4. Start the development server.
+
+The project will be available at [http://localhost:3000](http://localhost:3000).
